@@ -1,8 +1,8 @@
 # Wiki Index
 
-**Last updated:** 2026-04-22
-**Total pages:** 21
-**Total sources:** 3
+**Last updated:** 2026-04-24
+**Total pages:** 23
+**Total sources:** 4
 
 이 페이지는 위키의 모든 페이지를 카탈로그합니다. Ingest나 Query가 발생할 때마다 자동으로 업데이트됩니다.
 
@@ -24,7 +24,7 @@
 - [기사 운행 (Driver Operation)](wiki/concepts/driver-operation.md) — 기사가 앱으로 진행하는 운행 | 소스 1개
 - [견적 (Quotation)](wiki/concepts/quotation.md) — 외부 요청에 대한 가격 제시 및 협상 | 소스 1개
 - [운행 상태 (Operation State)](wiki/concepts/operation-state.md) — 경로의 생명주기를 나타내는 상태값 | 소스 1개
-- [정산 (Settlement)](wiki/concepts/settlement.md) — 월 1회 진행되는 재정 정산 | 소스 1개
+- [정산 (Settlement)](wiki/concepts/settlement.md) — 월 1회 진행되는 재정 정산 (계산 공식 포함) | 소스 2개
 - [스케줄링의 중요성](wiki/concepts/scheduling-criticality.md) — mshuttle 서비스의 핵심 가치 | 소스 1개
 - [시뮬레이션 (Simulation)](wiki/concepts/simulation.md) — 배차 후 기사의 경로 사전 확인 | 소스 1개
 - [연계 운행 (Chaining Operations)](wiki/concepts/chaining-operations.md) — 기사 효율성을 위한 경로 연결 | 소스 1개
@@ -34,13 +34,14 @@
 
 ## Syntheses (통합 분석)
 
-아직 없음
+- [업무 플로우 문서 분석](wiki/syntheses/flow-analysis.md) — data_doc flow/state 교차 분석, 16개 이슈 | 소스 12개 (NEW)
 
 ## Sources (소스 요약)
 
 - [The Science of Effective Learning](wiki/sources/effective-learning.md) — 2026-04-20 | learning, psychology
 - [mshuttle 서비스 전체 흐름](wiki/sources/mshuttle-overview.md) — 2026-04-22 | mshuttle, operations
-- [경로 제작 및 배차](wiki/sources/route-and-dispatch-detail.md) — 2026-04-22 | mshuttle, route, dispatching (NEW)
+- [경로 제작 및 배차](wiki/sources/route-and-dispatch-detail.md) — 2026-04-22 | mshuttle, route, dispatching
+- [정산 계산 로직 (코드 분석)](wiki/sources/settlement-calc-code.md) — 2026-04-24 | mshuttle, settlement, calculation (NEW)
 
 ---
 

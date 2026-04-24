@@ -2,6 +2,73 @@
 
 Append-only record of all ingest, query, and lint operations.
 
+## [2026-04-24] update | dispatch 테이블 + 보충 정보
+
+- **Source:** 사용자 직접 제공
+- **추가된 정보:**
+  - dispatch 테이블 스키마 (9개 테이블로 확장)
+  - cald는 전역 캘린더 (경로별 아님)
+  - runnCaldSchd = 경로별 운행 요일 정의
+  - orgList = 서비스 제공 업체 (기사비와 직접 무관)
+  - 기업/단체 정산(받는 방향)은 기사비와 직접 연결 어려움
+- **Pages updated:** 1
+  - settlement-calc-code.md — dispatch 스키마, 보충 설명 추가
+
+---
+
+## [2026-04-24] ingest | 정산 백엔드 API 분석
+
+- **Source:** admin-drcal-restapi/ (Fastify 백엔드)
+- **Endpoints found:** 13개 (GET 4, POST 5, PUT 1, DELETE 2, PUT 1)
+- **Pages updated:** 1
+  - settlement-calc-code.md — 백엔드 API 섹션 추가, 데이터 흐름 다이어그램
+- **Files updated:** 1
+  - PROGRESS.md — 모든 정보 수집 완료 상태로 업데이트
+- **Key findings:**
+  - 계산은 프론트엔드에서 수행, 백엔드는 결과 저장만
+  - Setl2Service: 데이터 조회 (cal, period, findIss, findAdjust, findRtPause)
+  - DrSetlService: CRUD + transfer 처리
+  - dr_pay_adjust.amount DOUBLE 타입은 실수 확인
+  - bizCd 구분: 0=일반, 1=변형, 2=소개비
+
+---
+
+## [2026-04-24] ingest | 정산 DB 스키마 매핑
+
+- **Source:** DB CREATE TABLE 직접 제공 (8개 테이블)
+- **Tables:** dr_pay, dr_setl, cald, rt_pause, dr_iss, dr_iss_amount, dr_pay_adjust, dr_ref
+- **Pages updated:** 1
+  - settlement-calc-code.md — DB 스키마 섹션 추가, ER 다이어그램 추가
+- **Files updated:** 2
+  - AGENT_SYSTEM.md — DB 매핑 블로킹 해소
+  - PROGRESS.md — 진행 상황 업데이트
+- **Key findings:**
+  - dr_setl에 계산 결과 전체가 저장됨 (총 16개 금액/일수 칼럼)
+  - dr_pay_adjust.amount가 DOUBLE 타입 (다른 금액은 INT) — 소수점 주의
+  - dr_iss_amount.board_reward_ids가 JSON 타입 — 탑승 보상 연동
+  - 모든 날짜가 VARCHAR 타입 — 문자열 비교 처리 필요
+
+---
+
+## [2026-04-24] ingest | 정산 계산 로직 코드 분석
+
+- **Source:** admin_drcal/src/pages/Setl/Setl/ (프론트엔드 코드)
+- **Pages created:** 1
+  - settlement-calc-code.md — 정산 계산 공식, 데이터 모델, 특수 케이스 상세
+- **Pages updated:** 1
+  - settlement.md — 실제 계산 공식, 정산 기간, 상태 흐름 추가
+- **Files updated:** 2
+  - AGENT_SYSTEM.md — Settlement Agent 블로킹 해소, 상세 계산 로직 반영
+  - PROGRESS.md — 진행 상황 업데이트
+- **Key findings:**
+  - 6단계 계산 공식: 계약금액 → 일수계산 → 미운행차감 → 이슈조정 → VAT → 최종금액
+  - 8개 데이터 엔티티: DrPay, DrSetl, Cald, RtPause, DrIss, DrIssAmount, DrPayAdjust, DrRef
+  - 정산 기간은 setlStartDay에 따라 당월/전월 시작 분기
+  - 정산 상태: 미정산 → 정산완료 → 이체완료(잠금)
+  - **블로킹 해소:** 계산 공식 + 특수 케이스 모두 파악 완료
+
+---
+
 ## [2026-04-24] design | AI Agent System 설계
 
 - **Phase:** Wiki → Agent 자동화 시스템으로 진화

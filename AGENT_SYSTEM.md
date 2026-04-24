@@ -136,33 +136,83 @@
 
 | 항목 | 내용 |
 |------|------|
-| **입력** | 운행 완료 데이터 (월별) |
+| **입력** | 운행 완료 데이터 (월별) + 계약 정보 + 이슈/중단 기록 |
 | **의사결정** | 수학적 계산만 (의사결정 없음) |
-| **산출물** | 정산 보고서 + 청구서 + 지급액 |
+| **산출물** | 정산 보고서 + 총 운행비 (기사 지급액) |
 | **의존성** | ControlAgent의 운행 데이터 필수 |
 | **실행주기** | 매월 자동 (월 5일 예정) |
 
-**상세 프로세스:**
+**핵심 계산 공식:**
+
 ```
-1. 월별 운행 데이터 수집
-2. 고객 청구액 계산
-   - 탑승자수 × 기본요금 + 거리 × 단가 - 할인
-3. 기사(버스사) 지급액 계산
-   - 운행거리 × 단가 + 보너스 - 페널티
-4. 특수 케이스 처리
-   - 일시중단 기간 차감
-   - 홀딩 보상 처리
-   - 무신청 미탑승 처리
-5. 정산 기록 생성
-6. 보고서 자동 생성
-7. 알림 발송 (재무팀)
+[1단계] 월계약 운행비
+  defaultAmount = payAmount(계약금액) + addAmount(조정금액)
+
+[2단계] 일수 계산
+  monthDayCnt   = 정산 기간 내 총 일수
+  exceptDayCnt  = monthDayCnt - 캘린더운행일수 (제외일)
+  pauseDay      = 경로 중단 기간 일수
+  removeDay     = 이슈 미운행 일수
+  notRunnDayCnt = pauseDay + removeDay
+  runnDayCnt    = monthDayCnt - notRunnDayCnt - exceptDayCnt (실 운행일)
+
+[3단계] 미운행비용
+  notRunnAmount = floor(-1 × defaultAmount × (exceptDayCnt + notRunnDayCnt) / monthDayCnt)
+
+[4단계] 이슈 금액
+  issAddAmount    = sum(이슈 추가비, sign=1)
+  issRemoveAmount = -sum(이슈 차감비, sign=0)
+
+[5단계] 공급가액 + 부가세
+  supplyAmount = defaultAmount + issAddAmount + issRemoveAmount + notRunnAmount
+  vatAmount    = 과세(a): round(supplyAmount × 0.1) / 면세(b): 0
+
+[6단계] 최종 지급액
+  totalRunnAmount = supplyAmount + vatAmount + etcAmount + refAmount(소개비)
 ```
 
-**현재 정보 부족 항목:**
-- [ ] 정산 DB 구조
-- [ ] 청구액 계산 공식
-- [ ] 지급액 계산 공식
-- [ ] 특수 케이스 처리 규칙
+**정산 기간 결정 (setlStartDay 기준):**
+- 10일 이하 → 당월 시작 (예: 3/5 ~ 4/4)
+- 10일 초과 → 전월 시작 (예: 2/15 ~ 3/14)
+
+**특수 케이스 처리:**
+
+| 케이스 | 처리 방식 |
+|--------|----------|
+| 운행중단 (RtPause) | `pauseDay`에 반영 → 미운행비용 차감 |
+| 이슈 미운행 (DrIss) | `removeDay`에 반영 → 미운행비용 차감 |
+| 이슈 금액 조정 (DrIssAmount) | sign=1 추가 / sign=0 차감 |
+| 조정금액 (DrPayAdjust) | `defaultAmount`에 직접 반영 |
+| 소개비 (DrRef) | 최종 금액에 합산 |
+| 신규 경로 | runnStatus="신규", 기간 내 시작일부터 계산 |
+| 폐지 경로 | runnStatus="폐지", 기간 내 종료일까지 계산 |
+
+**정산 상태 흐름:**
+```
+미정산 → [정산 실행] → 정산완료 → [이체] → 이체완료(잠금)
+                        ↓
+                   [정산 취소] → 미정산
+```
+
+**DB 테이블 매핑:**
+
+| DB 테이블 | 키 칼럼 | 용도 |
+|-----------|---------|------|
+| `dr_pay` | amount, setl_day_cd, setl_start_day | 계약금액, 정산 기간 |
+| `dr_setl` | vat_cd, transfer_yn, total_runn_amount | 정산 결과 저장 |
+| `cald` | day, runn_cd, is_holiday | 운행 캘린더 |
+| `rt_pause` | start_day, end_day, pause_cd | 경로 중단 기간 |
+| `dr_iss` | dispatch_id, start_day, end_day, iss_cd | 이슈 미운행 |
+| `dr_iss_amount` | sign, amount, iss_amount_cd | 이슈 금액 조정 |
+| `dr_pay_adjust` | amount, setl_start/end_month | 조정금액 (기간 한정) |
+| `dr_ref` | amount, ref_dr_id | 소개비 |
+
+**정보 수집 완료 항목:**
+- [x] 정산 계산 공식 (코드 분석 완료)
+- [x] 데이터 엔티티 구조
+- [x] 특수 케이스 처리 규칙
+- [x] 정산 상태 흐름
+- [x] DB 테이블/칼럼 매핑 (8개 테이블 확인 완료)
 
 ---
 
@@ -228,10 +278,11 @@
 ### Phase 1: Settlement Agent (우선순위 1)
 **이유:** 월 1회 고정, 규칙 기반, 의사결정 단순
 
-**필요 정보:**
-- [ ] 정산 DB 구조
-- [ ] 청구액/지급액 계산 공식
-- [ ] 특수 케이스 처리 규칙
+**정보 수집 현황:**
+- [x] 계산 공식 (코드 분석 완료 2026-04-24)
+- [x] 데이터 엔티티 구조
+- [x] 특수 케이스 처리 규칙
+- [x] DB 테이블 매핑 (8개 테이블 스키마 확인 완료 2026-04-24)
 
 **예상 개발 기간:** 1-2주
 
@@ -277,10 +328,10 @@ Monitoring: 대시보드 (React)
 
 ## 📝 다음 단계
 
-Settlement Agent 설계를 시작하기 위해 필요한 정보:
+Settlement Agent 계산 로직 파악 완료 (2026-04-24). 남은 작업:
 
-1. **정산 DB 구조** (테이블, 칼럼)
-2. **청구액 계산 공식**
-3. **지급액 계산 공식**
-4. **현재 정산 프로세스** (누가 언제 뭘 하나)
-5. **특수 케이스** (일시중단, 홀딩 등 처리 방식)
+1. **백엔드 DB 테이블 매핑** — 프론트 인터페이스 ↔ 실제 DB 테이블/칼럼 확인
+2. **백엔드 API 분석** — 정산 데이터 조회/저장 API 엔드포인트 파악
+3. **Agent 코드 구현** — Python + FastAPI로 계산 로직 자동화
+4. **자동 스케줄러** — 매월 자동 실행 + 알림
+5. **검증** — 기존 정산 결과와 Agent 계산 결과 대조
