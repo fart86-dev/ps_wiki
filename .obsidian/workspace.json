@@ -1,0 +1,240 @@
+{
+  "main": {
+    "id": "2aa81e77a19c393f",
+    "type": "split",
+    "children": [
+      {
+        "id": "53daaa5e5f792372",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "65fc35c7057454e0",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "새 탭"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "b68351ba9660cd15",
+    "type": "split",
+    "children": [
+      {
+        "id": "13ca7e3c67fcc14b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "992f1ade46fb2a04",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "파일 탐색기"
+            }
+          },
+          {
+            "id": "7fca08fe08a76bcb",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "검색"
+            }
+          },
+          {
+            "id": "28c8b4b75a8551fa",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "북마크"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "551b8f8e58ea3871",
+    "type": "split",
+    "children": [
+      {
+        "id": "961a8bbec30c1561",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4d0462b2ade48310",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "백링크"
+            }
+          },
+          {
+            "id": "88d57a7c8b8f8ced",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "나가는 링크"
+            }
+          },
+          {
+            "id": "b2984ab4955e5dc8",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "태그"
+            }
+          },
+          {
+            "id": "b77bfa52cb8d9ff9",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "모든 속성"
+            }
+          },
+          {
+            "id": "fbbdfb5eee966c80",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "개요"
+            }
+          },
+          {
+            "id": "3b42909634ceec07",
+            "type": "leaf",
+            "state": {
+              "type": "juggl_nodes",
+              "state": {},
+              "icon": "ag-node-list",
+              "title": "Juggl nodes"
+            }
+          },
+          {
+            "id": "951967aeec0139b9",
+            "type": "leaf",
+            "state": {
+              "type": "juggl_style",
+              "state": {},
+              "icon": "ag-style",
+              "title": "Juggl style"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:빠른 전환기 열기": false,
+      "graph:그래프 뷰 열기": false,
+      "canvas:새 캔버스 만들기": false,
+      "daily-notes:오늘의 일일 노트 열기": false,
+      "templates:템플릿 삽입": false,
+      "command-palette:명령어 팔레트 열기": false,
+      "bases:새 베이스 생성하기": false,
+      "juggl:Juggl global graph": false
+    }
+  },
+  "active": "65fc35c7057454e0",
+  "lastOpenFiles": [
+    "PROGRESS.md",
+    "AGENT_SYSTEM.md",
+    "wiki/concepts/route-creation-process.md",
+    "wiki/sources/effective-learning.md",
+    "wiki/sources/mshuttle-overview.md",
+    "wiki/entities/mshuttle.md",
+    "wiki/concepts/route.md",
+    "wiki/concepts/clustering.md",
+    "wiki/concepts/dispatching.md",
+    "wiki/concepts/settlement.md",
+    "wiki/concepts/marketing-for-demand.md",
+    "wiki/concepts/chaining-operations.md",
+    "wiki/sources/route-and-dispatch-detail.md",
+    "raw/papers/route_and_dispatch.md",
+    "HANDOFF_PROMPT.md",
+    "CONTEXT.md",
+    "index.md",
+    "wiki/concepts/spaced-repetition.md",
+    "wiki/concepts/quotation.md",
+    "wiki/concepts/active-recall.md",
+    "무제 1.base",
+    "무제.base",
+    "wiki/concepts/operation-state.md",
+    "무제.canvas",
+    "wiki/concepts/simulation.md",
+    "wiki/concepts/driver-operation.md",
+    "wiki/concepts/scheduling-criticality.md",
+    "wiki/concepts/control.md",
+    "raw/papers/mshuttle 서비스 전체 흐름 33340c143d6e81a6aaf3f197879795c5.md",
+    "wiki/syntheses",
+    "wiki/sources",
+    "wiki/log",
+    "wiki/entities",
+    "wiki/concepts",
+    "wiki",
+    "raw/screenshots",
+    "raw/papers"
+  ]
+}
