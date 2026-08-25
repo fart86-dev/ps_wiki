@@ -1,8 +1,8 @@
 # Wiki Index
 
-**Last updated:** 2026-04-24
-**Total pages:** 23
-**Total sources:** 4
+**Last updated:** 2026-08-25
+**Total pages:** 25
+**Total sources:** 5
 
 이 페이지는 위키의 모든 페이지를 카탈로그합니다. Ingest나 Query가 발생할 때마다 자동으로 업데이트됩니다.
 
@@ -22,6 +22,7 @@
 - [경로 (Route)](wiki/concepts/route.md) — mshuttle의 모든 운행을 시작하는 핵심 단위 (상세) | 소스 2개
 - [관제 (Control)](wiki/concepts/control.md) — 운영팀의 실시간 운행 모니터링 | 소스 1개
 - [기사 운행 (Driver Operation)](wiki/concepts/driver-operation.md) — 기사가 앱으로 진행하는 운행 | 소스 1개
+- [탑승자 앱 (Passenger App)](wiki/concepts/passenger-app.md) — 탑승자(유저) 하이브리드 WebView 앱, rtn_psn | 소스 1개 (NEW)
 - [견적 (Quotation)](wiki/concepts/quotation.md) — 외부 요청에 대한 가격 제시 및 협상 | 소스 1개
 - [운행 상태 (Operation State)](wiki/concepts/operation-state.md) — 경로의 생명주기를 나타내는 상태값 | 소스 1개
 - [정산 (Settlement)](wiki/concepts/settlement.md) — 월 1회 진행되는 재정 정산 (계산 공식 포함) | 소스 2개
@@ -41,7 +42,8 @@
 - [The Science of Effective Learning](wiki/sources/effective-learning.md) — 2026-04-20 | learning, psychology
 - [mshuttle 서비스 전체 흐름](wiki/sources/mshuttle-overview.md) — 2026-04-22 | mshuttle, operations
 - [경로 제작 및 배차](wiki/sources/route-and-dispatch-detail.md) — 2026-04-22 | mshuttle, route, dispatching
-- [정산 계산 로직 (코드 분석)](wiki/sources/settlement-calc-code.md) — 2026-04-24 | mshuttle, settlement, calculation (NEW)
+- [정산 계산 로직 (코드 분석)](wiki/sources/settlement-calc-code.md) — 2026-04-24 | mshuttle, settlement, calculation
+- [rtn_psn 탑승자 앱 (코드 분석)](wiki/sources/rtn-psn-app.md) — 2026-08-25 | mshuttle, passenger, react-native (NEW)
 
 ---
 

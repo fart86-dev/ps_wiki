@@ -2,6 +2,22 @@
 
 Append-only record of all ingest, query, and lint operations.
 
+## [2026-08-25] ingest | rtn_psn 탑승자 앱 (코드 분석)
+
+- **Source:** rtn_psn/ (React Native 하이브리드 WebView 앱, 위성 위키 llm-wiki/ 기준)
+- **Pages created:** 2
+  - wiki/sources/rtn-psn-app.md — 탑승자 앱 코드 분석 요약
+  - wiki/concepts/passenger-app.md — 탑승자 앱 개념 (탑승/유저 노드)
+- **Pages updated:** 1
+  - index.md — concept/source 항목 추가, 카운트 25 pages / 5 sources
+- **Key findings:**
+  - 도메인 개념 트리에 없던 "탑승자(유저)" 측 페이지 공백을 메움 (기존 driver-operation의 대응)
+  - 4계층 브릿지 + 3종 메시지 계약(function/response/listener) 문서화
+  - 자체 OTA 프로토콜, iOS 쿠키 수동 영속화 요약
+  - 레포 간 의존성(OTA가 드라이버앱 API 공유, drapp 정렬 진행)은 needs-verification로 표기
+
+---
+
 ## [2026-04-24] update | dispatch 테이블 + 보충 정보
 
 - **Source:** 사용자 직접 제공
